@@ -32,10 +32,10 @@ emissionsAggregates$PMaggregate <- round(emissionsAggregates$PMaggregate/1000,2)
 # Generate plot
 png(filename='plot1.png')
 
-barplot(Emissions$PM, names.arg=Emissions$Group.1, 
+barplot(emissionsAggregates$PM, names.arg=emissionsAggregates$Year, 
         main=expression('Total Emission of PM'[2.5]),
         xlab='Year', ylab=expression(paste('PM', ''[2.5], ' in Kilotons')))
 
-dev.off()
+
 
 
