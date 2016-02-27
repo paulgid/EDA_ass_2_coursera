@@ -36,6 +36,5 @@ barplot(emissionsAggregates$PM, names.arg=emissionsAggregates$Year,
         main=expression('Total Emission of PM'[2.5]),
         xlab='Year', ylab=expression(paste('PM', ''[2.5], ' in Kilotons')))
 
-
-
+dev.off()
 
