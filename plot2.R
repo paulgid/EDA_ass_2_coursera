@@ -24,10 +24,6 @@ if (!file.exists('data')){
 NEI <- readRDS("data/summarySCC_PM25.rds")
 SCC <- readRDS("data/Source_Classification_Code.rds")
 
-
-NEI <- readRDS("data/summarySCC_PM25.rds")
-SCC <- readRDS("data/Source_Classification_Code.rds")
-
 # subset
 subset <- subset(NEI, fips == "24510" )
 emissionsAggregates <- aggregate(subset[, 'Emissions'], by=list(subset$year), FUN=sum)
