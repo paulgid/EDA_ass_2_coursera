@@ -24,3 +24,21 @@ require(ggplot2)
 
 NEI <- readRDS("data/summarySCC_PM25.rds")
 SCC <- readRDS("data/Source_Classification_Code.rds")
+
+# subset Baltimore City, Maryland 
+subset <- subset(NEI, fips == "24510" & type == 'ON-ROAD')
+subset$year <- as.factor(subset$year)
+
+emissionsAggregates <- aggregate(subset[, 'Emissions'], by=list(subset$year), FUN=sum)
+names(emissionsAggregates) <- c('Year', 'PMaggregate')
+
+png('plot5.png')
+
+barplot(emissionsAggregates$PM, names.arg=emissionsAggregates$Year, 
+        main=expression('Total Emissions of Motor Vehicle Sources in Baltimore City, Maryland' ),
+        xlab='Year', ylab=expression(paste('PM', ''[2.5], ' in tons')))
+
+dev.off()
+
+
+
