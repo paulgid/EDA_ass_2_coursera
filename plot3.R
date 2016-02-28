@@ -20,20 +20,23 @@ if (!file.exists('data')){
  download.data()
 }
 
+require(ggplot2)
+
 NEI <- readRDS("data/summarySCC_PM25.rds")
 SCC <- readRDS("data/Source_Classification_Code.rds")
 
+
 # subset to get data for Baltimore
 subset <- subset(NEI, fips == "24510" )
-emissionsAggregates <- aggregate(subset[, 'Emissions'], by=list(subset$year), FUN=sum)
-names(emissionsAggregates) <- c('Year', 'PMaggregate')
+subset$year <- as.factor(subset$year)
 
-# Generate plot
-png(filename='plot2.png')
+# generate plot
 
-barplot(emissionsAggregates$PM, names.arg=emissionsAggregates$Year, 
-        main=expression('Total Emission in Baltimore City, Maryland' ),
-        xlab='Year', ylab=expression(paste('PM', ''[2.5], ' in tons')))
+png(filename='plot3.png')
+
+	ggplot(data=subset, aes(x=year, y=log(Emissions))) + facet_grid(. ~ type) + guides(fill=F) +
+	    geom_boxplot(aes(fill=type)) + ylab(expression(paste('Log', ' of PM'[2.5], ' Emissions'))) + xlab('Year') + 
+	    ggtitle('Emissions per Type in Baltimore, Maryland') +
+	    geom_jitter(alpha=0.20)
 
 dev.off()
-
