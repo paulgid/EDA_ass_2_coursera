@@ -36,7 +36,7 @@ png(filename='plot3.png')
 
 	ggplot(data=subset, aes(x=year, y=log(Emissions))) + facet_grid(. ~ type) + guides(fill=F) +
 	    geom_boxplot(aes(fill=type)) + ylab(expression(paste('Log', ' of PM'[2.5], ' Emissions'))) + xlab('Year') + 
-	    ggtitle('Emissions per Type in Baltimore, Maryland') +
+	    ggtitle('Emissions by Type in Baltimore, Maryland') +
 	    geom_jitter(alpha=0.20)
 
 dev.off()
