@@ -24,3 +24,23 @@ require(ggplot2)
 
 NEI <- readRDS("data/summarySCC_PM25.rds")
 SCC <- readRDS("data/Source_Classification_Code.rds")
+
+onRoad <- subset(NEI, type == 'ON-ROAD')
+onRoad$year <- as.factor(onRoad$year)
+onRoad$fips <- as.factor(onRoad$fips)
+
+onRoad <- subset(onRoad, fips %in% c('24510', '06037'))
+
+
+# create the plot 
+
+png('plot6.png')
+
+	ggplot(data=onRoad, aes(x=year, y=log(Emissions))) + facet_grid(. ~ fips) + guides(fill=F) +
+	    geom_boxplot(aes(fill=fips)) + ylab(expression(paste('Log', ' of PM'[2.5], ' Emissions'))) + xlab('Year') + 
+	    ggtitle('Emissions of Motor Vehicle Sources\nLos Angeles County, California vs. Baltimore City, Maryland') +
+	    geom_jitter(alpha=0.20)
+
+dev.off()
+
+
